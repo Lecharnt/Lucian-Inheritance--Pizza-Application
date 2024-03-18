@@ -47,17 +47,18 @@ public class DemoPizza extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String userInput = userin.getText();
                 String useraddress = address.getText(); // This gets the text of the toppings and the address
-                Topping selectedTopping = getPredefinedTopping(userInput);
-
+                Topping selectedTopping = getPredefinedTopping(userInput);//This gets the predefined topping
+// This checks if the selected topping is valid or not
                 if (selectedTopping != null) {
+                    //this creates a new pizza object
                     if (pizzaToppings == null) {
                         pizzaToppings = new pizza(selectedTopping);
-                    } else {
+                    } else {//this adds the topping to the existing pizza
                         pizzaToppings.addTopping(selectedTopping);
                     }
-                } else {
+                } else {// Displaying an error message
                     JOptionPane.showMessageDialog(DemoPizza.this, "Invalid topping!", "Something went wrong", JOptionPane.INFORMATION_MESSAGE);
-                }
+                }// Displaying an error message
                 if (useraddress.isEmpty()) {
                     JOptionPane.showMessageDialog(DemoPizza.this, "Invalid address!", "Something went wrong", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -65,27 +66,27 @@ public class DemoPizza extends JFrame {
 
             }
         });
-        JButton buttonConfirmPurchase = new JButton("Confirm Purchase");
+        JButton buttonConfirmPurchase = new JButton("Confirm Purchase");// this creats a button for confirming the purchase
         buttonConfirmPurchase.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String useraddress = address.getText();
+                String useraddress = address.getText(); // this gets the user input for the address
                 DeliveryPizza deliveryPizza = new DeliveryPizza(pizzaToppings.getArrayList().get(0), 0, address.getText());
-
+// Checking if their is anything to put into the message
                 if (pizzaToppings != null) {
-                    StringBuilder message = new StringBuilder("You have selected:\n\n");
+                    StringBuilder message = new StringBuilder("You have selected:\n\n");//This puts pizzaToppings into the message 
                     for (Topping order : pizzaToppings.getArrayList()) {
                         message.append(order).append("\n");
                     }
-                    message.append("\nTotal Price: $").append(deliveryPizza.getAllPrice());
+                    message.append("\nTotal Price: $").append(deliveryPizza.getAllPrice());//this adds the total price and adds the delivery address
                     message.append("\nThe food is being sent to "+ useraddress);
-
+//this shows the order message
                     JOptionPane.showMessageDialog(DemoPizza.this, message.toString(), "Order Summary", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
 
-        // Setting up layout and adding components to content pane
+        // this is adding components to content pane
         JPanel contentPane = new JPanel();
         contentPane.setLayout(new GridLayout(0, 1));
         contentPane.add(titleBar);
@@ -112,9 +113,9 @@ public class DemoPizza extends JFrame {
     }
 
     private Topping getPredefinedTopping(String userInput) {
-        switch (userInput.toLowerCase()) {
+        switch (userInput.toLowerCase()){ // Switching the case to lower
             case "buffalo chicken":
-                return new Topping("Buffalo Chicken", 3);
+                return new Topping("Buffalo Chicken", 3);//these store the values for the different toppings
             case "artichoke hearts":
                 return new Topping("Artichoke Hearts", 3);
             case "pineapple and ham":
@@ -138,7 +139,7 @@ public class DemoPizza extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {//makes the window visable
         DemoPizza example = new DemoPizza();
         example.setVisible(true);
     }
